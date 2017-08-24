@@ -1,0 +1,6 @@
+prefix=/usr
+exec_prefix=$${prefix}
+
+DEPENDPATH += $${prefix}/include/ofono-qt5
+INCLUDEPATH += $${prefix}/include/ofono-qt5
+LIBS += -L $${exec_prefix}/lib -lofono-qt5

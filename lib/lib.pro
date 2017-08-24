@@ -1,7 +1,14 @@
 include(../version.pri)
 
 TEMPLATE = lib
-TARGET = ofono-qt
+
+equals(QT_MAJOR_VERSION, 4): {
+    TARGET = ofono-qt
+}
+
+equals(QT_MAJOR_VERSION, 5): {
+    TARGET = ofono-qt5
+}
 
 CONFIG += debug
 DEFINES += BUILD_OFONO_QT_LIBRARY
@@ -64,14 +71,22 @@ SOURCES += ofonointerface.cpp \
 
 target.path = $$[QT_INSTALL_PREFIX]/lib
 headers.files = $$PUBLIC_HEADERS
-headers.path = $$[QT_INSTALL_PREFIX]/include/ofono-qt
 
 CONFIG += create_pc create_prl
 
+equals(QT_MAJOR_VERSION, 4): {
+    headers.path = $$[QT_INSTALL_PREFIX]/include/ofono-qt
+    qtconfig.path = $$[QT_INSTALL_PREFIX]/share/qt4/mkspecs/features
+    qtconfig.files = ofono-qt.prf
+}
+
+equals(QT_MAJOR_VERSION, 5): {
+    headers.path = $$[QT_INSTALL_PREFIX]/include/ofono-qt5
+    qtconfig.path = $$[QT_INSTALL_PREFIX]/share/qt5/mkspecs/features
+    qtconfig.files = ofono-qt5.prf
+}
+
 QMAKE_PKGCONFIG_DESTDIR = pkgconfig
 QMAKE_PKGCONFIG_INCDIR = $$headers.path
-
-qtconfig.path = $$[QT_INSTALL_PREFIX]/share/qt4/mkspecs/features
-qtconfig.files = ofono-qt.prf
 
 INSTALLS += target headers qtconfig
