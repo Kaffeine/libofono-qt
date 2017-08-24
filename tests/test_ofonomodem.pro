@@ -1,2 +1,2 @@
 include(testcase.pri)
-SOURCES = test_ofonomodem.cpp
+SOURCES += test_ofonomodem.cpp
